@@ -1,0 +1,26 @@
+DirectoryIndex frontend_out/index.html index.html index.php
+
+PassengerEnabled on
+PassengerAppType wsgi
+PassengerStartupFile passenger_wsgi.py
+
+RewriteEngine On
+
+# 1. Root URL -> frontend_out/index.html
+RewriteRule ^$ frontend_out/index.html [L]
+
+# 2. Match exact physical files (assets, js, css, images)
+RewriteCond %{DOCUMENT_ROOT}/frontend_out%{REQUEST_URI} -f
+RewriteRule ^(.*)$ frontend_out/$1 [L]
+
+# 3. Match Next.js HTML pages (e.g. /modules/lead-gen -> frontend_out/modules/lead-gen.html)
+RewriteCond %{DOCUMENT_ROOT}/frontend_out%{REQUEST_URI}.html -f
+RewriteRule ^(.*)$ frontend_out/$1.html [L]
+
+# 4. Match subfolder index.html
+RewriteCond %{DOCUMENT_ROOT}/frontend_out%{REQUEST_URI}/index.html -f
+RewriteRule ^(.*)$ frontend_out/$1/index.html [L]
+
+# 5. ALL API & WSGI REQUESTS PASS TO PASSENGER WSGI
+RewriteCond %{DOCUMENT_ROOT}/frontend_out%{REQUEST_URI} !-f
+RewriteRule ^ - [L]

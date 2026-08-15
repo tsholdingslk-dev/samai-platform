@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+email-validator
+python-dotenv
+cryptography
+passlib[bcrypt]
+PyJWT
+openai
+python-multipart
+PyPDF2
+docx2txt
+a2wsgi
+requests
