@@ -65,12 +65,14 @@ export default function ChatClient({ projectId }: { projectId: string }) {
     setLoading(true);
 
     try {
+      const formData = new FormData();
+      formData.append("content", text);
+
       const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "";
       const url = API_BASE ? `${API_BASE}/chat/${projectId || "default"}` : `/api/chat/${projectId || "default"}`;
       const res = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: text, role: "user" }),
+        body: formData,
       });
       const data = await res.json();
       const reply = data.content || data.message || "SAM AI is processing your request...";
