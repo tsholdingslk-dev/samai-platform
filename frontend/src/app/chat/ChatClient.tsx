@@ -19,7 +19,9 @@ export default function ChatClient({ projectId }: { projectId: string }) {
   useEffect(() => {
     const init = async () => {
       try {
-        const res = await fetch(`/api/chat/${projectId || "default"}`);
+        const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+        const url = API_BASE ? `${API_BASE}/chat/${projectId || "default"}` : `/api/chat/${projectId || "default"}`;
+        const res = await fetch(url);
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           setMessages(data.map((m: any, i: number) => ({
@@ -63,7 +65,9 @@ export default function ChatClient({ projectId }: { projectId: string }) {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/chat/${projectId || "default"}`, {
+      const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+      const url = API_BASE ? `${API_BASE}/chat/${projectId || "default"}` : `/api/chat/${projectId || "default"}`;
+      const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: text, role: "user" }),

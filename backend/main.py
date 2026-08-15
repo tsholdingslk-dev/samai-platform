@@ -40,6 +40,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Global Exception Handler to capture tracebacks cleanly
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
