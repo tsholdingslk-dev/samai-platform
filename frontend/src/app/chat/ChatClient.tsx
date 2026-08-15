@@ -19,8 +19,8 @@ export default function ChatClient({ projectId }: { projectId: string }) {
   useEffect(() => {
     const init = async () => {
       try {
-        const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "";
-        const url = API_BASE ? `${API_BASE}/chat/${projectId || "default"}` : `/api/chat/${projectId || "default"}`;
+        const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://samai-platform-production.up.railway.app";
+        const url = `${API_BASE}/chat/${projectId || "default"}`;
         const res = await fetch(url);
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
@@ -68,8 +68,8 @@ export default function ChatClient({ projectId }: { projectId: string }) {
       const formData = new FormData();
       formData.append("content", text);
 
-      const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "";
-      const url = API_BASE ? `${API_BASE}/chat/${projectId || "default"}` : `/api/chat/${projectId || "default"}`;
+      const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://samai-platform-production.up.railway.app";
+      const url = `${API_BASE}/chat/${projectId || "default"}`;
       const res = await fetch(url, {
         method: "POST",
         body: formData,
