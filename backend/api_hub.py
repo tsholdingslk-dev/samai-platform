@@ -29,7 +29,7 @@ class APIProvider:
             self.client = OpenAI(
                 api_key=self.api_key,
                 base_url=self.base_url,
-                timeout=3.0
+                timeout=60.0
             )
 
             self.status = "active"

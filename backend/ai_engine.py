@@ -27,7 +27,7 @@ def get_ai_response(user_message: str, chat_history: list = None) -> str:
 
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future = executor.submit(_call_hub)
-            result = future.result(timeout=4.0)
+            result = future.result(timeout=30.0)
             return result["content"]
     except Exception as e:
         print(f"API Hub Notice/Fallback: {e}")
